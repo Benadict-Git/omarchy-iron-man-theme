@@ -1,0 +1,294 @@
+# Iron Man Plymouth theme -- arc reactor unlock screen.
+# Password and progress handling follow Omarchy's omarchy.script unchanged.
+
+Window.SetBackgroundTopColor(0.027, 0.031, 0.043);
+Window.SetBackgroundBottomColor(0.012, 0.012, 0.018);
+
+#----------------------------------------- Arc reactor --------------------------------
+boot_img = [];
+idle_img = [];
+boot_img[0] = Image("boot-00.png");
+boot_img[1] = Image("boot-01.png");
+boot_img[2] = Image("boot-02.png");
+boot_img[3] = Image("boot-03.png");
+boot_img[4] = Image("boot-04.png");
+boot_img[5] = Image("boot-05.png");
+boot_img[6] = Image("boot-06.png");
+boot_img[7] = Image("boot-07.png");
+boot_img[8] = Image("boot-08.png");
+boot_img[9] = Image("boot-09.png");
+boot_img[10] = Image("boot-10.png");
+boot_img[11] = Image("boot-11.png");
+boot_img[12] = Image("boot-12.png");
+boot_img[13] = Image("boot-13.png");
+boot_img[14] = Image("boot-14.png");
+boot_img[15] = Image("boot-15.png");
+boot_img[16] = Image("boot-16.png");
+boot_img[17] = Image("boot-17.png");
+boot_img[18] = Image("boot-18.png");
+boot_img[19] = Image("boot-19.png");
+boot_img[20] = Image("boot-20.png");
+boot_img[21] = Image("boot-21.png");
+boot_img[22] = Image("boot-22.png");
+boot_img[23] = Image("boot-23.png");
+idle_img[0] = Image("idle-00.png");
+idle_img[1] = Image("idle-01.png");
+idle_img[2] = Image("idle-02.png");
+idle_img[3] = Image("idle-03.png");
+idle_img[4] = Image("idle-04.png");
+idle_img[5] = Image("idle-05.png");
+idle_img[6] = Image("idle-06.png");
+idle_img[7] = Image("idle-07.png");
+idle_img[8] = Image("idle-08.png");
+idle_img[9] = Image("idle-09.png");
+idle_img[10] = Image("idle-10.png");
+idle_img[11] = Image("idle-11.png");
+idle_img[12] = Image("idle-12.png");
+idle_img[13] = Image("idle-13.png");
+idle_img[14] = Image("idle-14.png");
+idle_img[15] = Image("idle-15.png");
+idle_img[16] = Image("idle-16.png");
+idle_img[17] = Image("idle-17.png");
+idle_img[18] = Image("idle-18.png");
+idle_img[19] = Image("idle-19.png");
+idle_img[20] = Image("idle-20.png");
+idle_img[21] = Image("idle-21.png");
+idle_img[22] = Image("idle-22.png");
+idle_img[23] = Image("idle-23.png");
+idle_img[24] = Image("idle-24.png");
+idle_img[25] = Image("idle-25.png");
+idle_img[26] = Image("idle-26.png");
+idle_img[27] = Image("idle-27.png");
+idle_img[28] = Image("idle-28.png");
+idle_img[29] = Image("idle-29.png");
+idle_img[30] = Image("idle-30.png");
+idle_img[31] = Image("idle-31.png");
+global.boot_count = 24;
+global.idle_count = 32;
+
+logo.image = idle_img[0];
+logo.sprite = Sprite(boot_img[0]);
+logo.sprite.SetX(Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
+logo.sprite.SetY(Window.GetHeight() / 2 - logo.image.GetHeight() / 2 - 60);
+logo.sprite.SetOpacity(1);
+
+caption.ask = Image("caption-ask.png");
+caption.boot = Image("caption-boot.png");
+caption.sprite = Sprite(caption.ask);
+caption.sprite.SetOpacity(0);
+
+global.reactor_tick = 0;
+global.reactor_speed = 1;
+
+fun update_reactor() {
+  global.reactor_tick = global.reactor_tick + global.reactor_speed;
+  t = Math.Int(global.reactor_tick / 2);
+  if (t < global.boot_count) {
+    logo.sprite.SetImage(boot_img[t]);
+  } else {
+    i = t - global.boot_count;
+    i = i - Math.Int(i / global.idle_count) * global.idle_count;
+    logo.sprite.SetImage(idle_img[i]);
+  }
+}
+
+fun show_caption(img) {
+  caption.sprite.SetImage(img);
+  caption.sprite.SetX(Window.GetWidth() / 2 - img.GetWidth() / 2);
+  caption.sprite.SetY(logo.sprite.GetY() + logo.image.GetHeight() + 6);
+  caption.sprite.SetOpacity(1);
+}
+
+# Use these to adjust the progress bar timing
+global.fake_progress_limit = 0.7;
+global.fake_progress_duration = 15.0;
+
+global.animation_frame = 0;
+global.fake_progress = 0.0;
+global.real_progress = 0.0;
+global.fake_progress_active = 0;
+global.fake_progress_start_time = 0.0;
+global.password_shown = 0;
+global.max_progress = 0.0;
+
+fun refresh_callback() {
+  global.animation_frame++;
+  update_reactor();
+
+  if (global.fake_progress_active == 1) {
+    elapsed_time = global.animation_frame / 50.0;
+    time_ratio = elapsed_time / global.fake_progress_duration;
+    if (time_ratio > 1.0) time_ratio = 1.0;
+    eased_ratio = 1 - ((1 - time_ratio) * (1 - time_ratio));
+    global.fake_progress = eased_ratio * global.fake_progress_limit;
+    update_progress_bar(global.fake_progress);
+  }
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+#----------------------------------------- Helper Functions --------------------------------
+
+fun update_progress_bar(progress) {
+  if (progress > global.max_progress) {
+    global.max_progress = progress;
+    width = Math.Int(progress_bar.original_image.GetWidth() * progress);
+    if (width < 1) width = 1;
+    progress_bar.image = progress_bar.original_image.Scale(width, progress_bar.original_image.GetHeight());
+    progress_bar.sprite.SetImage(progress_bar.image);
+  }
+}
+
+fun show_progress_bar() {
+  progress_box.sprite.SetOpacity(1);
+  progress_bar.sprite.SetOpacity(1);
+}
+
+fun hide_progress_bar() {
+  progress_box.sprite.SetOpacity(0);
+  progress_bar.sprite.SetOpacity(0);
+}
+
+fun show_password_dialog() {
+  lock.sprite.SetOpacity(1);
+  entry.sprite.SetOpacity(1);
+}
+
+fun hide_password_dialog() {
+  lock.sprite.SetOpacity(0);
+  entry.sprite.SetOpacity(0);
+  for (index = 0; bullet.sprites[index]; index++) {
+    bullet.sprites[index].SetOpacity(0);
+  }
+}
+
+fun start_fake_progress() {
+  global.fake_progress_active = 1;
+  global.animation_frame = 0;
+  global.max_progress = 0.0;
+  global.fake_progress = 0.0;
+  global.fake_progress_start_time = 0.0;
+}
+
+fun stop_fake_progress() {
+  global.fake_progress_active = 0;
+}
+
+#----------------------------------------- Dialogue --------------------------------
+
+lock.image = Image("lock.png");
+entry.image = Image("entry.png");
+bullet.image = Image("bullet.png");
+
+entry.sprite = Sprite(entry.image);
+entry.x = Window.GetWidth() / 2 - entry.image.GetWidth() / 2;
+entry.y = logo.sprite.GetY() + logo.image.GetHeight() + 44;
+entry.sprite.SetPosition(entry.x, entry.y, 10001);
+entry.sprite.SetOpacity(0);
+
+lock_height = entry.image.GetHeight() * 0.8;
+lock_scale = lock_height / 96;
+lock_width = 96 * lock_scale;
+
+scaled_lock = lock.image.Scale(lock_width, lock_height);
+lock.sprite = Sprite(scaled_lock);
+lock.x = entry.x - lock_width - 15;
+lock.y = entry.y + entry.image.GetHeight() / 2 - lock_height / 2;
+lock.sprite.SetPosition(lock.x, lock.y, 10001);
+lock.sprite.SetOpacity(0);
+
+bullet.sprites = [];
+
+fun display_normal_callback() {
+  hide_password_dialog();
+  mode = Plymouth.GetMode();
+  if ((mode == "boot" || mode == "resume") && global.password_shown == 1) {
+    show_caption(caption.boot);
+    global.reactor_speed = 3;
+    show_progress_bar();
+    start_fake_progress();
+  }
+}
+
+fun display_password_callback(prompt, bullets) {
+  global.password_shown = 1;
+  stop_fake_progress();
+  hide_progress_bar();
+  show_password_dialog();
+  show_caption(caption.ask);
+  global.reactor_speed = 1;
+
+  for (index = 0; bullet.sprites[index]; index++) {
+    bullet.sprites[index].SetOpacity(0);
+  }
+
+  max_bullets = 21;
+  bullets_to_show = bullets;
+  if (bullets_to_show > max_bullets) {
+    bullets_to_show = max_bullets;
+  }
+
+  for (index = 0; index < bullets_to_show; index++) {
+    if (!bullet.sprites[index]) {
+      scaled_bullet = bullet.image.Scale(12, 12);
+      bullet.sprites[index] = Sprite(scaled_bullet);
+      bullet.x = entry.x + 22 + index * (12 + 6);
+      bullet.y = entry.y + entry.image.GetHeight() / 2 - 6;
+      bullet.sprites[index].SetPosition(bullet.x, bullet.y, 10002);
+    }
+    bullet.sprites[index].SetOpacity(1);
+  }
+}
+
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+#----------------------------------------- Progress Bar --------------------------------
+
+progress_box.image = Image("progress_box.png");
+progress_box.sprite = Sprite(progress_box.image);
+
+progress_box.x = Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2;
+progress_box.y = entry.y + entry.image.GetHeight() / 2 - progress_box.image.GetHeight() / 2;
+progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 0);
+progress_box.sprite.SetOpacity(0);
+
+progress_bar.original_image = Image("progress_bar.png");
+progress_bar.sprite = Sprite();
+progress_bar.image = progress_bar.original_image.Scale(1, progress_bar.original_image.GetHeight());
+
+progress_bar.x = Window.GetWidth() / 2 - progress_bar.original_image.GetWidth() / 2;
+progress_bar.y = progress_box.y + (progress_box.image.GetHeight() - progress_bar.original_image.GetHeight()) / 2;
+progress_bar.sprite.SetPosition(progress_bar.x, progress_bar.y, 1);
+progress_bar.sprite.SetOpacity(0);
+
+fun progress_callback(duration, progress) {
+  if (global.fake_progress_start_time == 0.0) {
+    global.fake_progress_start_time = duration;
+  }
+  global.real_progress = progress;
+  if (duration > global.fake_progress_start_time && progress > global.fake_progress) {
+    stop_fake_progress();
+    update_progress_bar(progress);
+  }
+}
+
+Plymouth.SetBootProgressFunction(progress_callback);
+
+#----------------------------------------- Message --------------------------------
+
+message_sprite = Sprite();
+message_sprite.SetPosition(10, 10, 10000);
+
+fun display_message_callback(text) {
+  message = Image.Text(text, 1, 1, 1);
+  message_sprite.SetImage(message);
+  message_sprite.SetOpacity(1);
+}
+
+fun hide_message_callback(text) {
+  message_sprite.SetOpacity(0);
+}
+
+Plymouth.SetDisplayMessageFunction(display_message_callback);
+Plymouth.SetHideMessageFunction(hide_message_callback);

@@ -1,0 +1,7 @@
+# Bar flyouts: dark HUD glass framed by the red-to-gold armour border.
+background       = "#07080b"
+background-alpha = 1.0
+text             = "#fbecd2"
+border           = "hyprland.active-border"
+border-alpha     = 1.0
+border-width     = 2

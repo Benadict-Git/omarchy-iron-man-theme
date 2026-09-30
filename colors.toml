@@ -1,0 +1,37 @@
+# Iron Man - sampled from the Mark armour reference art:
+# gunmetal blueprint base, crimson plate, brass faceplate, arc-reactor cyan.
+mode = "dark"
+
+accent = "#efb13c"
+selection = "#2a3442"
+muted = "#5c6675"
+
+background = "#121418"
+dark_background = "#0d0f12"
+darker_background = "#08090b"
+lighter_background = "#1e2430"
+
+foreground = "#e7ddd0"
+dark_foreground = "#8a8f9a"
+light_foreground = "#c9c3b8"
+bright_foreground = "#fffaf0"
+
+# The signature: crimson plate sweeping into the brass faceplate.
+hyprland_active_border = "rgba(c8102eee) rgba(efb13cee) 45deg"
+hyprland_inactive_border = "rgba(2a3442aa)"
+
+red = "#c8102e"
+yellow = "#efb13c"
+orange = "#e8732a"
+green = "#6fbf8f"
+cyan = "#4fc3e8"
+blue = "#3e8fc4"
+magenta = "#c2567a"
+brown = "#8a5a3c"
+
+bright_red = "#f5333f"
+bright_yellow = "#ffcf6b"
+bright_green = "#8fd8a8"
+bright_cyan = "#86e2ff"
+bright_blue = "#6fb8e8"
+bright_magenta = "#e07a99"

@@ -1,0 +1,10 @@
+background       = "#07080b"
+background-alpha = 1.0
+text             = "#fbecd2"
+text-error       = "#f5333f"
+border           = "hyprland.active-border"
+border-error     = "#f5333f"
+border-alpha     = 1.0
+scrim            = "#050608"
+scrim-alpha      = 0.6
+accent           = "#4fc3e8"

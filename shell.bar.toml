@@ -1,0 +1,8 @@
+# Iron Man HUD bar: near-black glass, gold readouts, red for alerts.
+background       = "#0a0c10"
+background-alpha = 1.0
+text             = "#ffe4b0"
+active           = "#f5333f"
+scale-with-font  = true
+size-horizontal  = 26
+size-vertical    = 28

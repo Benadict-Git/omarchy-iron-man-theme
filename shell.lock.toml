@@ -1,0 +1,13 @@
+# J.A.R.V.I.S. authentication field: arc-blue at rest, red-to-gold while
+# typing, red on a wrong password.
+background       = "#05070a"
+background-alpha = 0.82
+text             = "#e8fbff"
+placeholder      = "#6fb8e8"
+text-error       = "#f5333f"
+border           = "rgba(4fc3e8ee) rgba(86e2ffee) 90deg"
+border-active    = "rgba(c8102eee) rgba(efb13cee) 45deg"
+border-error     = "#f5333f"
+border-alpha     = 1.0
+selection        = "#4fc3e8"
+selection-alpha  = 0.45

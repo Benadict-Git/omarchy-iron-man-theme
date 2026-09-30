@@ -1,0 +1,7 @@
+background       = "#07080b"
+background-alpha = 1.0
+text             = "#fbecd2"
+border           = "hyprland.active-border"
+border-alpha     = 1.0
+border-width     = 2
+countdown        = "#4fc3e8"

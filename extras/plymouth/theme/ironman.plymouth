@@ -1,0 +1,11 @@
+[Plymouth Theme]
+Name=Iron Man
+Description=Arc reactor disk-unlock screen.
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/ironman
+ScriptFile=/usr/share/plymouth/themes/ironman/ironman.script
+ConsoleLogBackgroundColor=0x07080b
+MonospaceFont=Cantarell 11
+Font=Cantarell 11

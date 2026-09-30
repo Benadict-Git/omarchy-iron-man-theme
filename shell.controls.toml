@@ -1,0 +1,23 @@
+# Controls glow arc-reactor blue on focus, gold when selected.
+normal-color        = "#fbecd2"
+normal-fill-alpha   = 0.04
+normal-border       = "#ffe4b0"
+normal-border-width = 1
+normal-border-alpha = 0.35
+hover-cursor-color        = "#86e2ff"
+hover-cursor-fill-alpha   = 0.10
+hover-cursor-border       = "#4fc3e8"
+hover-cursor-border-width = 1
+hover-cursor-border-alpha = 0.7
+focus-color        = "#86e2ff"
+focus-fill-alpha   = 0.10
+focus-border       = "#4fc3e8"
+focus-border-width = 1
+focus-border-alpha = 0.8
+selected-color        = "#efb13c"
+selected-fill-alpha   = 0.16
+selected-border       = "#efb13c"
+selected-border-width = 1
+selected-border-alpha = 0.6
+pressed-fill-alpha   = 0.22
+selection-fill-alpha = 0.35
