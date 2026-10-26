@@ -43,43 +43,6 @@ generated renders.
 **Boot splash** (`unlock.png`): an arc reactor, used if you run
 `omarchy plymouth set by theme iron-man`.
 
-## Extra: animated arc-reactor boot unlock screen
-
-`extras/plymouth` is an optional Plymouth theme for the disk-encryption
-password screen. It isn't part of the Omarchy theme and needs root to install.
-
-- The reactor flickers on and powers up, then idles with a turning coil ring
-  and a breathing core.
-- The prompt reads "A.P.R.I.L. · IDENTITY REQUIRED" above a red-to-gold
-  password field with glowing dots.
-- After unlocking, the screen switches to "SYSTEMS ONLINE · WELCOME BACK" with a
-  blue-to-gold boot progress bar.
-
-The password handling is Omarchy's own, unchanged; only the visuals differ.
-
-| Asking for the password | Booting |
-|---|---|
-| ![](extras/plymouth/mock_ask.png) | ![](extras/plymouth/mock_boot.png) |
-
-```bash
-cd ~/.config/omarchy/themes/iron-man
-sudo bash extras/plymouth/install.sh          # install and rebuild the initramfs
-sudo bash extras/plymouth/install.sh --undo   # back to Omarchy's screen
-```
-
-It rebuilds the boot images with `limine-mkinitcpio` (Omarchy's default), or
-`mkinitcpio -P` without Limine. It refuses to install with less than 200 MB free
-in `/boot`, and switches back to the previous theme if the rebuild fails.
-
-To name your own assistant and yourself, regenerate the captions:
-
-```bash
-cd extras/plymouth
-ASSISTANT="F.R.I.D.A.Y." NAME="Tony" python3 source/make_assets.py theme
-```
-
-That needs Python with Pillow and NumPy.
-
 ## License
 
 MIT, see [LICENSE](LICENSE). This is an unofficial fan theme. Iron Man is a
